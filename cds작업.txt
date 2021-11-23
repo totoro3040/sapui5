@@ -1,0 +1,99 @@
+
+CDS 작업
+
+	TCODE : /iwfnd/maint_service
+		서비스 추가
+			시스템별칭 : LOCAL
+			기술 서비스 이름 : ZT* 검색
+			
+			패키지 지정 $TMP
+			
+		서비스 검색
+			기술서비스 이름 선택하고 필터 
+				기술서비스 이름 : ZT*
+				
+				ZTEST03_CDS 선택하고 아내 SAPGateway 클릭
+				EntitySets 선택
+				실행
+				
+				
+=================
+eclipse
+=================
+install - https://tools.hana.ondemand.com/2021-09
+
+신규
+	new > abap > sap abap project
+		CSD, 10.2.176.35, 00 ...
+
+
+다른 패키지 참조
+	Fovorite Packages
+		Add Package - ZEX04 - XEXCVA0110 ~ 0220
+	
+
+BOPF ( Business Object Process Framework)
+BSP
+
+
+============ TEST ================
+로컬 테스트 테이블(고객정보)
+ztoto_user
+	mandt
+	vuser_id	char	5
+	vuser_nm	char	20
+	vage			
+	vreg_date	dats	8
+
+로컬 테스트 테이블(부서정보)
+ztoto_dept
+	mandt
+	vdept_id	char	5
+	vdept_nm	char	40
+	vreg_date	dats	8
+
+로컬 테스트 테이블(고객 부서근무 정보)
+ztoto_userdept
+	mandt
+	vuser_id
+	vdept_id
+	vreg_date
+
+
+Z0001, DP001~DP005
+
+=======================
+
+
+@AbapCatalog.sqlViewName: 'ZTOTORO001'
+@AbapCatalog.compiler.compareFilter: true
+@AbapCatalog.preserveKey: true
+@Metadata.allowExtensions: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: '고객정보 View'
+@OData.publish: true
+define view ztotoro001_ddl
+  as select from ztoto_user     as user //zextas0100, zextas0110
+    inner join   ztoto_userdept as userdept on userdept.vuser_id = user.vuser_id
+    inner join   ztoto_dept     as dept     on dept.vdept_id = userdept.vdept_id
+{
+      @UI.lineItem.position:10
+      @EndUserText.label: '아이디'
+      @UI.identification.position:10
+  key user.vuser_id,
+      @EndUserText.label: '부서코드'
+      @UI.lineItem.position:20
+  key dept.vdept_id,
+      @EndUserText.label: '이름'
+      @UI.lineItem.position:30
+      user.vuser_nm,
+      @EndUserText.label: '부서명'
+      @UI.lineItem.position:40
+      dept.vdept_nm,
+      @EndUserText.label: '나이'
+      @UI.lineItem.position:50
+      user.vage,
+      @EndUserText.label: '등록일'
+      @UI.lineItem.position:60
+      user.vreg_date
+}
