@@ -1,0 +1,52 @@
+mvn -B archetype:generate -DarchetypeArtifactId=cds-services-archetype -DarchetypeGroupId=com.sap.cds -DarchetypeVersion=1.17.0 -DgroupId=com.sap.cap -DartifactId=bookstore
+
+mvn -B archetype:generate -DarchetypeArtifactId=cds-services-archetype -DarchetypeGroupId=com.sap.cds -DarchetypeVersion=1.17.0 -DgroupId=com.sap.cap -DartifactId=products-service -Dpackage=com.sap.cap.productsservice
+
+srv/admin-service.cds 생성
+
+mvn clean install
+
+//cds compile srv/admin-service.cds --to sql
+//cds compile srv/admin-service.cds --to edmx-v4
+
+mvn clean spring-boot:run
+
+handlers 폴더 생성
+AdminService.java 생성
+
+데이터 삽입
+curl -X POST http://localhost:8080/odata/v4/AdminService/Products -H "Content-Type: application/json" -d '{"ID": 42, "title": "My Tutorial Product", "descr": "You are doing an awesome job!"}'
+
+--------------
+sqlite로 변경
+
+db\schema.cds 생성
+
+admin-service.cds 다시 작성
+
+db 생성
+cds deploy --to sqlite
+
+application.yaml 수정
+
+
+/index.cds 생성
+
+
+=======================================
+mvn -B archetype:generate -DarchetypeArtifactId=cds-services-archetype -DarchetypeGroupId=com.sap.cds -DarchetypeVersion=1.17.0 -DgroupId=com.sap.cap -DartifactId=bookstore
+
+
+db/schema.cds 생성
+srv/services.cds 생성
+
+----------------------------------------
+---
+spring:
+  profiles: default
+  datasource:
+    url: "jdbc:sqlite:C:/DEV/sap/cap/javacap05/my.db"
+    driver-class-name: org.sqlite.JDBC
+    initialization-mode: never
+    hikari:
+      maximum-pool-size: 1
