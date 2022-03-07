@@ -1,3 +1,28 @@
+1. 생성
+mvn -B archetype:generate -DarchetypeArtifactId=cds-services-archetype -DarchetypeGroupId=com.sap.cds \
+-DarchetypeVersion=1.17.0 \
+-DgroupId=com.totoro -DartifactId=sample -Dpackage=com.totoro.sample
+
+cd sample
+
+2. node_module 설치
+sample> npm install
+ 
+3. sqlite 생성
+sample> npm install --save-dev sqlite3  // /package.json 안에 디펜더시 추가된 것을 확인
+
+4. sqlite 초기화
+entity cds 생성 후
+sample> cds deploy --to sqlite  //배포
+
+5. service entity 생성 후
+sample> npm run deploy
+
+6. handler 생성 후
+sample> mvn clean install or mvn clean spring-boot:run
+
+
+
 mvn -B archetype:generate -DarchetypeArtifactId=cds-services-archetype -DarchetypeGroupId=com.sap.cds -DarchetypeVersion=1.17.0 -DgroupId=com.sap.cap -DartifactId=bookstore
 
 mvn -B archetype:generate -DarchetypeArtifactId=cds-services-archetype -DarchetypeGroupId=com.sap.cds -DarchetypeVersion=1.17.0 -DgroupId=com.sap.cap -DartifactId=products-service -Dpackage=com.sap.cap.productsservice
