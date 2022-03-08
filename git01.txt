@@ -1,0 +1,32 @@
+git config --system --unset credential.helper
+
+$ git config --global user.name "username" $ git config --global user.email "email@email.com"
+
+출처: https://hyeo-noo.tistory.com/184 [개발냥발]
+
+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
+
+
+
+
+Support for password authentication was removed on August 13, 2021. Please use a personal access token instead.
+
+
+fatal: Authentication failed for 'https://github.com/cap2022/sample.git/'
+
+https://github.com/cap2022/sample.git
+
+git config --global user.name 'easyclub@naver.com'
+git config --global user.password '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'
+
+git init
+git status
+
+git remote add origin https://github.com/cap2022/sample.git
+
+git checkout -t origin/master
+git branch
+
+git push --set-upstream origin main
+git push --set-upstream origin master
+
